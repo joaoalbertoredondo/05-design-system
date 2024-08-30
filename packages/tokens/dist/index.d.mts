@@ -47,7 +47,7 @@ declare const fonts: {
     code: string;
 };
 
-declare const fonSizes: {
+declare const fontSizes: {
     xxs: string;
     xs: string;
     sm: string;
@@ -69,11 +69,11 @@ declare const fontWeights: {
     bold: string;
 };
 
-declare const lineHeight: {
+declare const lineHeights: {
     shorter: string;
     short: string;
     base: string;
     tall: string;
 };
 
-export { colors, fonSizes, fontWeights, fonts, lineHeight, radii, space };
+export { colors, fontSizes, fontWeights, fonts, lineHeights, radii, space };

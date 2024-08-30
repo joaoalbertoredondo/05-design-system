@@ -21,10 +21,10 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var src_exports = {};
 __export(src_exports, {
   colors: () => colors,
-  fonSizes: () => fonSizes,
+  fontSizes: () => fontSizes,
   fontWeights: () => fontWeights,
   fonts: () => fonts,
-  lineHeight: () => lineHeight,
+  lineHeights: () => lineHeights,
   radii: () => radii,
   space: () => space
 });
@@ -84,7 +84,7 @@ var fonts = {
 };
 
 // src/font-sizes.ts
-var fonSizes = {
+var fontSizes = {
   xxs: "0.625rem",
   xs: "0.75rem",
   sm: "0.875rem",
@@ -108,7 +108,7 @@ var fontWeights = {
 };
 
 // src/line-heights.ts
-var lineHeight = {
+var lineHeights = {
   shorter: "125%",
   short: "140%",
   base: "160%",
@@ -117,10 +117,10 @@ var lineHeight = {
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   colors,
-  fonSizes,
+  fontSizes,
   fontWeights,
   fonts,
-  lineHeight,
+  lineHeights,
   radii,
   space
 });
