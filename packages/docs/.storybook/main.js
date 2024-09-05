@@ -1,4 +1,5 @@
 import { join, dirname } from "path";
+import { config } from "process";
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -26,5 +27,12 @@ const config = {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
+  viteFinal: (config, { configType }) => {
+    if (configType === "PRODUCTION") {
+      config.base = "/05-design-system"
+    }
+
+    return config
+  }
 };
 export default config;
