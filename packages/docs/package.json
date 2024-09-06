@@ -1,7 +1,8 @@
 {
-  "name": "@ignite-ui/docs",
+  "name": "@his-ignite-ui/docs",
   "version": "1.0.0",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "storybook dev -p 6006",
@@ -29,10 +30,10 @@
     "vite": "^5.4.2"
   },
   "dependencies": {
-    "@ignite-ui/eslint-config": "*",
-    "@ignite-ui/react": "*",
-    "@ignite-ui/tokens": "*",
-    "@ignite-ui/ts-config": "*",
+    "@his-ignite-ui/eslint-config": "*",
+    "@his-ignite-ui/react": "*",
+    "@his-ignite-ui/tokens": "*",
+    "@his-ignite-ui/ts-config": "*",
     "@phosphor-icons/react": "^2.1.7",
     "@storybook/addon-a11y": "^8.2.9",
     "polished": "^4.3.1",

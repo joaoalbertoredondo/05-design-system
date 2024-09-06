@@ -1,14 +1,18 @@
 {
-  "name": "@ignite-ui/global",
+  "name": "@his-ignite-ui/global",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=!packages/docs && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.8",
     "turbo": "^2.0.10"
   },
   "packageManager": "npm@10.7.0",
