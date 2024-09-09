@@ -5,7 +5,7 @@ on:
     branches:
       - main
 
-jobs: 
+jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
@@ -20,9 +20,12 @@ jobs:
       - run: npm ci
 
       - run: npm run build
+        env:
+          TURBO_TOKEN: 1rGCSIptoXi78Dg3LdGgdLLS
+          TURBO_TEAM: joaoalbertoredondos-projects
 
       - name: Deploy storybook
         working-directory: ./packages/docs
         run: touch storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
-        env: 
+        env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
