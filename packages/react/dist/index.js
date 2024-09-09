@@ -67,7 +67,16 @@ __export(src_exports, {
   MultiStep: () => MultiStep,
   Text: () => Text,
   TextArea: () => TextArea,
-  TextInput: () => TextInput
+  TextInput: () => TextInput,
+  Toast: () => Toast2,
+  config: () => config,
+  createTheme: () => createTheme,
+  css: () => css,
+  getCssText: () => getCssText,
+  globalCss: () => globalCss,
+  keyframes: () => keyframes,
+  styled: () => styled,
+  theme: () => theme
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -86,7 +95,8 @@ var colors = {
   ignite300: "#00B37E",
   ignite500: "#00875F",
   ignite700: "#015F43",
-  ignite900: "#00291D"
+  ignite900: "#00291D",
+  test: "#fff"
 };
 var space = {
   1: "0.25rem",
@@ -559,7 +569,7 @@ var {
 
 // src/components/Box.tsx
 var Box = styled("div", {
-  padding: "$4",
+  padding: "$6",
   borderRadius: "$md",
   backgroundColor: "$gray800",
   border: "1px solid $gray600"
@@ -627,8 +637,8 @@ var Avatar = __toESM(require("@radix-ui/react-avatar"));
 var AvatarContainer = styled(Avatar.Root, {
   borderRadius: "$full",
   display: "inline-block",
-  width: "$12",
-  height: "$12",
+  width: "$16",
+  height: "$16",
   overflow: "hidden"
 });
 var AvatarImage = styled(Avatar.Image, {
@@ -682,6 +692,9 @@ var Button = styled("button", {
     height: "$4"
   },
   "&:disabled": {
+    boxShadow: "0 0 0 2px $colors$gray100"
+  },
+  "&:focus": {
     cursor: "not-allowed"
   },
   variants: {
@@ -734,21 +747,36 @@ var Button = styled("button", {
 });
 Button.displayName = "Button";
 
+// src/components/TextInput/index.tsx
+var import_react4 = require("react");
+
 // src/components/TextInput/styles.ts
 var TextInputContainer = styled("div", {
   backgroundColor: "$gray900",
-  padding: "$4",
   borderRadius: "$sm",
   boxSizing: "border-box",
   border: "2px solid $gray900",
   display: "flex",
-  alignItems: "baseline",
+  alignItems: "center",
+  variants: {
+    size: {
+      sm: {
+        padding: "$2 $3"
+      },
+      md: {
+        padding: "$3 $4"
+      }
+    }
+  },
   "&:has(input:focus)": {
     borderColor: "$ignite300"
   },
   "&:has(input:disabled)": {
     opacity: 0.5,
     cursor: "not-allowed"
+  },
+  defaultVariants: {
+    size: "md"
   }
 });
 var Prefix = styled("span", {
@@ -771,20 +799,22 @@ var Input = styled("input", {
   "&:disabled": {
     cursor: "not-allowed"
   },
-  "&:placeholder": {
+  "&::placeholder": {
     color: "$gray400"
   }
 });
 
 // src/components/TextInput/index.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
-function TextInput(_a) {
-  var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(TextInputContainer, { children: [
-    !!prefix && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Prefix, { children: prefix }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, __spreadValues({}, props))
-  ] });
-}
+var TextInput = (0, import_react4.forwardRef)(
+  (_a, ref) => {
+    var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(TextInputContainer, { children: [
+      !!prefix && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Prefix, { children: prefix }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, __spreadValues({ ref }, props))
+    ] });
+  }
+);
 TextInput.displayName = "TextInput";
 
 // src/components/TextArea.tsx
@@ -815,7 +845,7 @@ var TextArea = styled("textarea", {
 TextArea.displayName = "TextArea";
 
 // src/components/Checkbox/index.tsx
-var import_react4 = require("@phosphor-icons/react");
+var import_react5 = require("@phosphor-icons/react");
 
 // src/components/Checkbox/styles.ts
 var Checkbox = __toESM(require("@radix-ui/react-checkbox"));
@@ -836,7 +866,7 @@ var CheckboxContainer = styled(Checkbox.Root, {
   "&[data-state=checked]": {
     backgroundColor: "$ignite300"
   },
-  "&:focus": {
+  "&:focus, &[data-state=checked]": {
     border: "2px solid $ignite300"
   }
 });
@@ -871,7 +901,7 @@ var CheckboxIndicator = styled(Checkbox.Indicator, {
 // src/components/Checkbox/index.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 function Checkbox2(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CheckboxContainer, __spreadProps(__spreadValues({}, props), { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CheckboxIndicator, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_react4.Check, { weight: "bold" }) }) }));
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CheckboxContainer, __spreadProps(__spreadValues({}, props), { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CheckboxIndicator, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_react5.Check, { weight: "bold" }) }) }));
 }
 Checkbox2.displayName = "Checkbox";
 
@@ -918,6 +948,117 @@ function MultiStep({ size, currentStep = 1 }) {
   ] });
 }
 MultiStep.displayName = "MultiStep";
+
+// src/components/Toast/index.tsx
+var import_react6 = require("@phosphor-icons/react");
+
+// src/components/Toast/styles.ts
+var Toast = __toESM(require("@radix-ui/react-toast"));
+var hide = keyframes({
+  "0%": { opacity: 1 },
+  "100%": { opacity: 0 }
+});
+var slideIn2 = keyframes({
+  from: {
+    transform: "translateX(calc(100% + 25px))"
+  },
+  to: {
+    transform: "translateX(0)"
+  }
+});
+var swipeOut = keyframes({
+  from: {
+    transform: "var(--radix-toast-swipe-end-translate-x)"
+  },
+  to: {
+    transform: "translateX(calc(100% + 25px))"
+  }
+});
+var ToastContainer = styled(Toast.Provider, {});
+var ToastRoot = styled(Toast.Root, {
+  "&[data-state=open]": {
+    animation: `${slideIn2} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
+  },
+  "&[data-state=closed]": {
+    animation: `${hide} 150ms ease-in`
+  },
+  '&[data-swipe="move"]': {
+    transform: "translateX(var(--radix-toast-swipe-move-x))"
+  },
+  '&[data-swipe="cancel"]': {
+    transform: "translateX(0)",
+    transition: "transform 200ms ease-out"
+  },
+  '&[data-swipe="end"]': {
+    animation: `${swipeOut} 100ms ease-out`
+  },
+  backgroundColor: "$gray800",
+  padding: 15,
+  borderRadius: "$md",
+  border: "1px solid $gray600",
+  maxWidth: "20rem",
+  position: "relative"
+});
+var ToastTitle = styled(Toast.Title, {
+  color: "$white",
+  fontSize: "$xl",
+  fontWeight: "$bold",
+  lineHeight: "$base",
+  fontFamily: "$default"
+});
+var ToastDescription = styled(Toast.Description, {
+  color: "$gray200",
+  fontSize: "$sm",
+  lineHeight: "$base",
+  fontFamily: "$default"
+});
+var ToastClose = styled(Toast.Close, {
+  all: "unset",
+  color: "$gray200",
+  cursor: "pointer",
+  position: "absolute",
+  top: "$4",
+  right: "$4",
+  "&:hover": {
+    color: "$white",
+    transition: "color 0.3s"
+  }
+});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: 0,
+  right: 0,
+  display: "flex",
+  flexDirection: "column",
+  padding: 25,
+  gap: 10,
+  width: 390,
+  maxWidth: "100vw",
+  margin: 0,
+  listStyle: "none",
+  zIndex: 1e3,
+  outline: "none"
+});
+
+// src/components/Toast/index.tsx
+var import_jsx_runtime5 = require("react/jsx-runtime");
+function Toast2({
+  description,
+  duration = 3e3,
+  title,
+  open,
+  onOpenChange
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastContainer, { duration, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastRoot, { open, onOpenChange, children: [
+      title && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastTitle, { children: title }),
+      description && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastDescription, { children: description }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastClose, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_react6.X, { size: 20 }) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastViewport, {})
+  ] });
+}
+Toast2.displayName = "Toast";
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Avatar,
@@ -928,5 +1069,14 @@ MultiStep.displayName = "MultiStep";
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast,
+  config,
+  createTheme,
+  css,
+  getCssText,
+  globalCss,
+  keyframes,
+  styled,
+  theme
 });

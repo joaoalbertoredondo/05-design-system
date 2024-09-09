@@ -7,5 +7,6 @@ export * from "./components/TextInput";
 export * from "./components/TextArea";
 export * from "./components/Checkbox";
 export * from "./components/MuiltiStep";
+export * from "./components/Toast";
 
 export * from "./styles";
