@@ -17,6 +17,7 @@
   },
   "packageManager": "npm@10.7.0",
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.1.2",
     "@stitches/react": "^1.2.8"
   }
 }
